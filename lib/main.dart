@@ -10,6 +10,8 @@ void main() {
   runApp(const MyApp());
 }
 
+//TODO: If mobile center options in appbar
+
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
 
@@ -51,14 +53,6 @@ class MyHomePage extends StatelessWidget {
           // Header
           Row(
             children: <Widget>[
-              // Container(
-              //   width: 50,
-              //   height: 50,
-              //   margin: EdgeInsets.all(8),
-              //   decoration: BoxDecoration(
-              //       color: Colors.blue,
-              //       borderRadius: BorderRadius.circular(10)),
-              // ),
               Spacer(),
               Row(
                 children: List.generate(5, (index) {
@@ -91,26 +85,10 @@ class MyHomePage extends StatelessWidget {
                 children: [
                   Home(),
                   Projects(),
-                  Container(),
-                  // Services(),
+                  Services(),
                   About(),
                   Contacts(),
-                ]
-
-                //  List.generate(list.length, (index) {
-                //   return Container(
-                //     width: MediaQuery.of(context).size.width,
-                //     height: double.maxFinite,
-                //     color: colors[index],
-                //     child: Center(
-                //       child: Text(
-                //         list[index],
-                //         style: TextStyle(color: Colors.white, fontSize: 50),
-                //       ),
-                //     ),
-                //   );
-                // })
-                ),
+                ]),
           ),
         ],
       )),

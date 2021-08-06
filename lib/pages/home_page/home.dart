@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:particles_flutter/particles_flutter.dart';
 // import 'package:particles_flutter/particles_flutter.dart';
 import 'package:romeu_portfolio/adaptive_text.dart';
+import 'package:romeu_portfolio/animations/bottom_animation.dart';
 
 import '../../constants.dart';
 import '../../entrance_fader.dart';
@@ -95,52 +96,56 @@ class Home extends StatelessWidget {
                     SizedBox(
                       height: height * 0.02,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AdaptiveText(
-                          "Romeu",
-                          style: GoogleFonts.montserrat(
-                              fontSize: width < 1200
-                                  ? height * 0.015
-                                  : height * 0.025,
-                              fontWeight: FontWeight.w100,
-                              color: Colors.white,
-                              // _themeProvider.lightTheme
-                              //     ? Colors.black
-                              //     : Colors.white,
-                              letterSpacing: 4.0),
-                        ),
-                        AdaptiveText(
-                          "Beato",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              // _themeProvider.lightTheme
-                              //     ? Colors.black
-                              //     : Colors.white,
-                              fontSize: width < 1200
-                                  ? height * 0.015
-                                  : height * 0.025,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 5.0),
-                        ),
-                      ],
+                    WidgetAnimator(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AdaptiveText(
+                            "Romeu",
+                            style: GoogleFonts.montserrat(
+                                fontSize: width < 1200
+                                    ? height * 0.015
+                                    : height * 0.025,
+                                fontWeight: FontWeight.w100,
+                                color: Colors.white,
+                                // _themeProvider.lightTheme
+                                //     ? Colors.black
+                                //     : Colors.white,
+                                letterSpacing: 4.0),
+                          ),
+                          AdaptiveText(
+                            "Beato",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                // _themeProvider.lightTheme
+                                //     ? Colors.black
+                                //     : Colors.white,
+                                fontSize: width < 1200
+                                    ? height * 0.015
+                                    : height * 0.025,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 5.0),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: height * 0.02,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i < kSocialIconsSvgsPaths.length; i++)
-                          SocialMediaIconBtn(
-                            iconPath: kSocialIconsSvgsPaths[i],
-                            socialLink: kSocialLinks[i],
-                            height: height * 0.022,
-                            horizontalPadding: 15.0,
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(
+                        kSocialIconsSvgsPaths.length,
+                        (index) => WidgetAnimator(
+                          child: SocialMediaIconBtn(
+                            iconPath: kSocialIconsSvgsPaths[index],
+                            socialLink: kSocialLinks[index],
+                            height: height * 0.030,
+                            horizontalPadding: width * 0.015,
                           ),
-                      ],
-                    )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

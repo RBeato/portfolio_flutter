@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:romeu_portfolio/helper_widgets/about_me_data.dart';
-import 'package:romeu_portfolio/helper_widgets/community_icon_btn.dart';
 import 'package:romeu_portfolio/helper_widgets/custom_btn.dart';
 import 'package:romeu_portfolio/helper_widgets/custom_text_heading.dart';
 import 'package:romeu_portfolio/helper_widgets/tools_tech.dart';
@@ -36,13 +34,13 @@ class About extends StatelessWidget {
             child: Column(
               children: [
                 CustomSectionHeading(text: "\nAbout Me"),
-                // CustomSectionSubHeading(text: "Get to know me :)"),
-                //TODO: make container round with borders
-                Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
+                ClipOval(
                   child: Image.asset(
                     'assets/romeu.JPEG',
-                    height: height * 0.27,
+                    height: 150.0,
+                    width: 150.0,
+                    fit: BoxFit.cover,
+                    // height: height * 0.27,
                   ),
                 ),
                 SizedBox(
@@ -50,12 +48,30 @@ class About extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Who am I?",
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white70,
-                      fontSize: height * 0.025,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Who am I?",
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white70,
+                          fontSize: height * 0.025,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: OutlinedCustomBtn(
+                            btnText: "Resume",
+                            onPressed: () {
+                              kIsWeb
+                                  ? html.window.open(
+                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE',
+                                      "pdf")
+                                  : launchURL(
+                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE');
+                            }),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(
@@ -134,19 +150,6 @@ class About extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: OutlinedCustomBtn(
-                            btnText: "Resume",
-                            onPressed: () {
-                              kIsWeb
-                                  ? html.window.open(
-                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE',
-                                      "pdf")
-                                  : launchURL(
-                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE');
-                            }),
-                      ),
                       Container(
                         width: width * 0.2,
                         decoration: BoxDecoration(

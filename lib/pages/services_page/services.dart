@@ -9,7 +9,6 @@ import 'service_card_back.dart';
 
 class Services extends StatelessWidget {
   Services({Key key}) : super(key: key);
-  Widget child;
   double width;
   double height;
   bool isMobile = false;
@@ -29,14 +28,7 @@ class Services extends StatelessWidget {
                 itemBuilder: (BuildContext context, int itemIndex, int i) =>
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: ServiceCardWrapper(
-                          i: i,
-                          maxWidth: 650,
-                          maxWidthConstraint: 0.8,
-                          minWidthConstraint: 0.5,
-                          maxHeightConstraint: 0.8,
-                          minHeightConstraint: 0.5,
-                        )),
+                        child: ServiceCardWrapper(i)),
                 options: CarouselOptions(
                     height: width < 450 ? height * 0.4 : height * 0.4,
                     autoPlay: true,
@@ -55,14 +47,7 @@ class Services extends StatelessWidget {
                       (index) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: WidgetAnimator(
-                          child: ServiceCardWrapper(
-                            i: index,
-                            maxWidth: 1200,
-                            maxWidthConstraint: 0.25,
-                            minWidthConstraint: 0.22,
-                            maxHeightConstraint: 0.37,
-                            minHeightConstraint: 0.35,
-                          ),
+                          child: ServiceCardWrapper(index),
                         ),
                       ),
                     ),
@@ -70,40 +55,45 @@ class Services extends StatelessWidget {
                   SizedBox(
                     height: height * 0.04,
                   ),
-                  // Row(
-                  //   mainAxisSize: MainAxisSize.min,
-                  //   children: [
-                  //     for (int index = 3;
-                  //         index < kServicesIcons.length;
-                  //         index++)
-                  //       Padding(
-                  //         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                  //         child: WidgetAnimator(
-                  //           child: ServiceCardWrapper(
-                  //             i: index,
-                  //             maxWidth: 1200,
-                  //             maxWidthConstraint: 0.25,
-                  //             minWidthConstraint: 0.22,
-                  //             maxHeightConstraint: 0.37,
-                  //             minHeightConstraint: 0.35,
-                  //           ),
-                  //         ),
-                  //       )
-                  //   ],
-                  // ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (int index = 3;
+                          index < kServicesIcons.length;
+                          index++)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: WidgetAnimator(
+                            child: ServiceCardWrapper(index),
+                          ),
+                        )
+                    ],
+                  ),
                 ],
               )
       ]),
     );
   }
 
-  ServiceCardWrapper(
-      {@required int i,
-      @required int maxWidth,
-      @required double maxWidthConstraint,
-      @required double minWidthConstraint,
-      @required double maxHeightConstraint,
-      @required double minHeightConstraint}) {
+  ServiceCard ServiceCardWrapper(int i) {
+    double maxWidth;
+    double maxWidthConstraint;
+    double minWidthConstraint;
+    double maxHeightConstraint;
+    double minHeightConstraint;
+    if (isMobile) {
+      maxWidth = 650;
+      maxWidthConstraint = 0.8;
+      minWidthConstraint = 0.5;
+      maxHeightConstraint = 0.8;
+      minHeightConstraint = 0.5;
+    } else {
+      maxWidth = 1200;
+      maxWidthConstraint = 0.25;
+      minWidthConstraint = 0.22;
+      maxHeightConstraint = 0.37;
+      minHeightConstraint = 0.35;
+    }
     return ServiceCard(
       cardWidth: width < maxWidth
           ? width * maxWidthConstraint
