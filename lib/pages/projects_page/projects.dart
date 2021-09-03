@@ -21,9 +21,10 @@ class Projects extends StatelessWidget {
     width = MediaQuery.of(context).size.width;
 
     return Stack(children: [
-      Align(
-          alignment: Alignment.center,
-          child: BackgroundAnimation(baseColor: Colors.blue)),
+      Align(child: Container(color: Colors.purple.withOpacity(0.5))),
+      // Align(
+      //     alignment: Alignment.center,
+      //     child: BackgroundAnimation(baseColor: Colors.blue)),
       Align(
           alignment: Alignment.center,
           child: Container(

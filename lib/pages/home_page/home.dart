@@ -31,40 +31,41 @@ class Home extends StatelessWidget {
 
     return Stack(
       children: [
-        Align(
-          alignment: Alignment.center,
-          child: Center(
-            child: Container(
-              key: UniqueKey(),
-              child: Center(
-                child: CircularParticle(
-                  // key: UniqueKey(),
-                  awayRadius: 20,
-                  numberOfParticles: 120,
-                  speedOfParticles: 0.10,
-                  height: screenHeight,
-                  width: screenWidth,
-                  onTapAnimation: true,
-                  particleColor: Colors.white30.withOpacity(opacity),
-                  awayAnimationDuration: Duration(milliseconds: 600),
-                  maxParticleSize: 12,
-                  isRandSize: true,
-                  isRandomColor: true,
-                  randColorList: [
-                    Colors.blue.withOpacity(opacity),
-                    Colors.grey.withOpacity(opacity),
-                    Colors.white.withOpacity(opacity),
-                  ],
-                  awayAnimationCurve: Curves.easeInOutBack,
-                  enableHover: true,
-                  hoverColor: Colors.white,
-                  hoverRadius: 90,
-                  connectDots: true, //not recommended
-                ),
-              ),
-            ),
-          ),
-        ),
+        Align(child: Container(color: Colors.yellow.withOpacity(0.5))),
+        // Align(
+        //   alignment: Alignment.center,
+        //   child: Center(
+        //     child: Container(
+        //       key: UniqueKey(),
+        //       child: Center(
+        //         child: CircularParticle(
+        //           // key: UniqueKey(),
+        //           awayRadius: 20,
+        //           numberOfParticles: 120,
+        //           speedOfParticles: 0.10,
+        //           height: screenHeight,
+        //           width: screenWidth,
+        //           onTapAnimation: true,
+        //           particleColor: Colors.white30.withOpacity(opacity),
+        //           awayAnimationDuration: Duration(milliseconds: 600),
+        //           maxParticleSize: 12,
+        //           isRandSize: true,
+        //           isRandomColor: true,
+        //           randColorList: [
+        //             Colors.blue.withOpacity(opacity),
+        //             Colors.grey.withOpacity(opacity),
+        //             Colors.white.withOpacity(opacity),
+        //           ],
+        //           awayAnimationCurve: Curves.easeInOutBack,
+        //           enableHover: true,
+        //           hoverColor: Colors.white,
+        //           hoverRadius: 90,
+        //           connectDots: true, //not recommended
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Align(
           alignment: Alignment.center,
           child: Container(

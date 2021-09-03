@@ -8,9 +8,10 @@ class Contacts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Align(
-            alignment: Alignment.center,
-            child: BackgroundAnimation(baseColor: Colors.orange)),
+        Align(child: Container(color: Colors.blue.withOpacity(0.5))),
+        // Align(
+        //     alignment: Alignment.center,
+        //     child: BackgroundAnimation(baseColor: Colors.orange)),
         Align(
           alignment: Alignment.center,
           child: Container(

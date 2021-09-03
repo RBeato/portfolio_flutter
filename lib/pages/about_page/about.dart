@@ -19,164 +19,85 @@ class About extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
-    return Stack(
-      children: [
-        Align(
-            alignment: Alignment.center,
-            child: BackgroundAnimation(baseColor: Colors.greenAccent)),
-        Align(
+    return Stack(children: [
+      Align(child: Container(color: Colors.green.withOpacity(0.5))),
+      //     // alignment: Alignment.center,
+      //     // child: BackgroundAnimation(baseColor: Colors.greenAccent)
+      //     ),
+      Align(
           alignment: Alignment.center,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: width * 0.05,
-            ),
-            // color: Colors.white,
-            child: Column(
-              children: [
-                CustomSectionHeading(text: "\nAbout Me"),
-                ClipOval(
-                  child: Image.asset(
-                    'assets/romeu.JPEG',
-                    height: 150.0,
-                    width: 150.0,
-                    fit: BoxFit.cover,
-                    // height: height * 0.27,
-                  ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomSectionHeading(text: "\nAbout Me"),
+              ClipOval(
+                child: Image.asset(
+                  'assets/romeu.JPEG',
+                  height: 150.0,
+                  width: 150.0,
+                  fit: BoxFit.cover,
+                  // height: height * 0.27,
                 ),
-                SizedBox(
-                  height: height * 0.03,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Who am I?",
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white70,
-                          fontSize: height * 0.025,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: OutlinedCustomBtn(
-                            btnText: "Resume",
-                            onPressed: () {
-                              kIsWeb
-                                  ? html.window.open(
-                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE',
-                                      "pdf")
-                                  : launchURL(
-                                      'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE');
-                            }),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.028,
-                ),
-                Text(
-                  "I'm Romeu Beato, biomedical engineer, fullstack developer and blockchain enthusiast",
-                  style: GoogleFonts.montserrat(
-                    fontSize: height * 0.022,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Text(
-                  """At this point in time I work mainly with dart and flutter, so this allows me to build crossplatform applications while respecting each one's idiosyncrasies. I'm also into Blockchain technology so I've been spending an increasing amount of time learning an developing in this field. Despite my innate interest in science, I'm a logically oriented person who became a musician before turning into programming. I see myself as a problem solver with an artistic perspective on each challenge, with an uncanny but well-balanced blend of pragmatic and aesthetical considerations.""",
-                  style: GoogleFonts.montserrat(
-                    fontSize: height * 0.018,
-                    color: Colors.grey[500],
-                    height: 1.5,
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.025,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black38, width: 1.0),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.015,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Technologies I have worked with:",
-                    style: GoogleFonts.montserrat(
-                        color: Colors.white24, fontSize: height * 0.015),
-                  ),
-                ),
-                Row(
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    for (int i = 0; i < 4; i++)
-                      ToolTechWidget(
-                        techName: kTools[i],
+                    Text(
+                      "Who am I?",
+                      style: GoogleFonts.montserrat(
+                        color: Colors.white70,
+                        fontSize: height * 0.025,
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedCustomBtn(
+                          btnText: "Resume",
+                          onPressed: () {
+                            kIsWeb
+                                ? html.window.open(
+                                    'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE',
+                                    "pdf")
+                                : launchURL(
+                                    'https://drive.google.com/uc?export=view&id=1OOdcdGEN3thVvpZ4cl_MM0LT-GCMuLIE');
+                          }),
+                    ),
                   ],
                 ),
-                Row(
-                  children: [
-                    for (int i = 4; i < 8; i++)
-                      ToolTechWidget(
-                        techName: kTools[i],
-                      ),
-                  ],
+              ),
+              Text(
+                "I'm Romeu Beato, biomedical engineer, fullstack developer and blockchain enthusiast",
+                style: GoogleFonts.montserrat(
+                  fontSize: height * 0.022,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.white,
                 ),
-                SizedBox(
-                  height: height * 0.015,
+              ),
+              Text(
+                """At this point in time I work mainly with dart and flutter, so this allows me to build crossplatform applications while respecting each one's idiosyncrasies. I'm also into Blockchain technology so I've been spending an increasing amount of time learning an developing in this field. Despite my innate interest in science, I'm a logically oriented person who became a musician before turning into programming. I see myself as a problem solver with an artistic perspective on each challenge, with an uncanny but well-balanced blend of pragmatic and aesthetical considerations.""",
+                style: GoogleFonts.montserrat(
+                  fontSize: height * 0.018,
+                  color: Colors.grey[500],
+                  height: 1.5,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black54, width: 1.0),
+              ),
+              Text(
+                "Technologies I have worked with:",
+                style: GoogleFonts.montserrat(
+                    color: Colors.white24, fontSize: height * 0.015),
+              ),
+              Row(
+                children: [
+                  for (int i = 0; i < kTools.length; i++)
+                    ToolTechWidget(
+                      techName: kTools[i],
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    children: [
-                      Container(
-                        width: width * 0.2,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom:
-                                BorderSide(color: Colors.black45, width: 2.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // Row(
-                //   children: [
-                //     for (int i = 0; i < kCommunityLogo.length; i++)
-                //       CommunityIconBtn(
-                //         icon: kCommunityLogo[i],
-                //         link: kCommunityLinks[i],
-                //         height: _communityLogoHeight[i],
-                //       ),
-                //   ],
-                // ),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
+                ],
+              ),
+            ],
+          ))
+    ]);
   }
 }

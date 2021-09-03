@@ -17,62 +17,72 @@ class Services extends StatelessWidget {
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    return Container(
-      child: Column(children: [
-        CustomSectionHeading(text: "\nWhat I Do"),
-        CustomSectionSubHeading(text: "Services provided!"),
-        isMobile
-            ? CarouselSlider.builder(
-                //  cardWidth: width < 650 ? width * 0.8 : width * 0.5,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int itemIndex, int i) =>
-                    Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        child: ServiceCardWrapper(i)),
-                options: CarouselOptions(
-                    height: width < 450 ? height * 0.4 : height * 0.4,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 5),
-                    enlargeCenterPage: true,
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    enableInfiniteScroll: false),
-              )
-            : Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      3,
-                      (index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: WidgetAnimator(
-                          child: ServiceCardWrapper(index),
+    return Stack(children: [
+      Align(child: Container(color: Colors.orange.withOpacity(0.5))),
+      // Align(
+      //     alignment: Alignment.center,
+      //     child: BackgroundAnimation(baseColor: Colors.pink)),
+      Align(
+        child: Container(
+          child: Column(children: [
+            CustomSectionHeading(text: "\nWhat I Do"),
+            CustomSectionSubHeading(text: "Services provided!"),
+            isMobile
+                ? CarouselSlider.builder(
+                    //  cardWidth: width < 650 ? width * 0.8 : width * 0.5,
+                    itemCount: 5,
+                    itemBuilder: (BuildContext context, int itemIndex, int i) =>
+                        Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: ServiceCardWrapper(i)),
+                    options: CarouselOptions(
+                        height: width < 450 ? height * 0.4 : height * 0.4,
+                        autoPlay: true,
+                        autoPlayInterval: Duration(seconds: 5),
+                        enlargeCenterPage: true,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        autoPlayAnimationDuration: Duration(milliseconds: 800),
+                        enableInfiniteScroll: false),
+                  )
+                : Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          3,
+                          (index) => Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: WidgetAnimator(
+                              child: ServiceCardWrapper(index),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: height * 0.04,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (int index = 3;
-                          index < kServicesIcons.length;
-                          index++)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: WidgetAnimator(
-                            child: ServiceCardWrapper(index),
-                          ),
-                        )
+                      SizedBox(
+                        height: height * 0.04,
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          for (int index = 3;
+                              index < kServicesIcons.length;
+                              index++)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 15.0),
+                              child: WidgetAnimator(
+                                child: ServiceCardWrapper(index),
+                              ),
+                            )
+                        ],
+                      ),
                     ],
-                  ),
-                ],
-              )
-      ]),
-    );
+                  )
+          ]),
+        ),
+      ),
+    ]);
   }
 
   ServiceCard ServiceCardWrapper(int i) {
