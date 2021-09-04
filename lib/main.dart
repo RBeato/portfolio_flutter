@@ -38,6 +38,14 @@ class MyHomePage extends StatelessWidget {
     Colors.yellow
   ];
 
+  List<Widget> pages = [
+    Home(),
+    Projects(),
+    Services(),
+    About(),
+    Contacts(),
+  ];
+
   PageController controller = PageController();
 
   @override
@@ -55,7 +63,7 @@ class MyHomePage extends StatelessWidget {
             children: <Widget>[
               Spacer(),
               Row(
-                children: List.generate(5, (index) {
+                children: List.generate(pages.length, (index) {
                   return GestureDetector(
                     onTap: () {
                       _scrollToIndex(index);
@@ -82,13 +90,9 @@ class MyHomePage extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 pageSnapping: false,
                 controller: controller,
-                children: [
-                  Home(),
-                  Projects(),
-                  Services(),
-                  About(),
-                  Contacts(),
-                ]),
+                children: [Projects()]
+                //pages,
+                ),
           ),
         ],
       )),

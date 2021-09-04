@@ -1,28 +1,16 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:romeu_portfolio/pages/services_page/card_front.dart';
+import 'package:romeu_portfolio/pages/services_page/card_back.dart';
 
 import '../../constants.dart';
 
 class ServiceCard extends StatefulWidget {
-  final String serviceIcon;
-  final String serviceTitle;
-  final String serviceDescription;
-  final String serviceLink;
-  final double cardWidth;
-  final double cardHeight;
-  final Widget cardBack;
+  ServiceCard(this.cardIndex);
 
-  const ServiceCard({
-    @required this.serviceIcon,
-    @required this.serviceTitle,
-    @required this.serviceDescription,
-    @required this.serviceLink,
-    @required this.cardHeight,
-    @required this.cardWidth,
-    @required this.cardBack,
-  });
+  final int cardIndex;
 
   @override
   _ServiceCardState createState() => _ServiceCardState();
@@ -30,135 +18,82 @@ class ServiceCard extends StatefulWidget {
 
 class _ServiceCardState extends State<ServiceCard> {
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
-
   bool isHover = false;
+
   @override
   Widget build(BuildContext context) {
-    // final _themeProvider = Provider.of<ThemeProvider>(context);
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
     return InkWell(
-      onTap: () {},
-      onHover: (isHovering) {
-        if (isHovering) {
-          setState(() {
-            isHover = true;
-          });
-          cardKey.currentState.toggleCard();
-        } else {
-          setState(() {
-            isHover = false;
-          });
-          cardKey.currentState.toggleCard();
-        }
-      },
-      child: FlipCard(
-        flipOnTouch: kIsWeb ? false : true,
-        key: cardKey,
-        back: Container(
-            width: widget.cardWidth,
-            height: widget.cardHeight,
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              // _themeProvider.lightTheme ? Colors.white : Colors.grey[900],
-              border: Border(
-                bottom: isHover
-                    ? BorderSide(
-                        color: kPrimaryColor,
-                        width: 3.0,
-                      )
-                    : BorderSide(),
-              ),
-              boxShadow: isHover
-                  ? [
-                      BoxShadow(
-                        color: kPrimaryColor.withAlpha(100),
-                        blurRadius: 12.0,
-                        offset: Offset(0.0, 0.0),
-                      )
-                    ]
-                  : [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(100),
-                        blurRadius: 12.0,
-                        offset: Offset(0.0, 0.0),
-                      )
-                    ],
+        onTap: () {},
+        onHover: (isHovering) {
+          if (isHovering) {
+            setState(() {
+              isHover = true;
+            });
+            cardKey.currentState.toggleCard();
+          } else {
+            setState(() {
+              isHover = false;
+            });
+            cardKey.currentState.toggleCard();
+          }
+        },
+        child: ResponsiveBuilder(builder: (context, sizingInformation) {
+          return FlipCard(
+            flipOnTouch: kIsWeb ? false : true,
+            key: cardKey,
+            back: FlippingCard(
+                child: ServiceCardBack(widget.cardIndex), isHover: isHover),
+            front: FlippingCard(
+              isHover: isHover,
+              child: ServiceCardFront(widget.cardIndex),
             ),
-            child: widget.cardBack),
-        front: Container(
-          width: widget.cardWidth,
-          height: widget.cardHeight,
-          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-          decoration: BoxDecoration(
-            color: Colors
-                .white, //_themeProvider.lightTheme ? Colors.white : Colors.grey[900],
-            border: Border(
-              bottom: isHover
-                  ? BorderSide(
-                      color: kPrimaryColor,
-                      width: 3.0,
-                    )
-                  : BorderSide(),
-            ),
-            boxShadow: isHover
-                ? [
-                    BoxShadow(
-                      color: kPrimaryColor.withAlpha(100),
-                      blurRadius: 12.0,
-                      offset: Offset(0.0, 0.0),
-                    )
-                  ]
-                : [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(100),
-                      blurRadius: 12.0,
-                      offset: Offset(0.0, 0.0),
-                    )
-                  ],
+          );
+        }));
+  }
+}
+
+class FlippingCard extends StatelessWidget {
+  FlippingCard({Key key, this.child, this.isHover}) : super(key: key);
+  final Widget child;
+  final bool isHover;
+
+  @override
+  Widget build(BuildContext context) {
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+      double height = sizingInformation.localWidgetSize.height;
+      double width = sizingInformation.localWidgetSize.width;
+      return Container(
+        width: height > 500 ? height * 0.8 : 500,
+        height: width > 300 ? width * 0.8 : 300,
+        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+        decoration: BoxDecoration(
+          color: Colors.grey[900],
+          border: Border(
+            bottom: isHover
+                ? BorderSide(
+                    color: kPrimaryColor,
+                    width: 3.0,
+                  )
+                : BorderSide(),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                widget.serviceIcon,
-                height: height * 0.125,
-              ),
-              SizedBox(
-                height: height * 0.02,
-              ),
-              Text(
-                widget.serviceTitle,
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                  fontSize: height * 0.022,
-                  letterSpacing: 2.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                  // _themeProvider.lightTheme ? Colors.black : Colors.white,
-                ),
-              ),
-              SizedBox(
-                height: height * 0.01,
-              ),
-              Expanded(
-                child: Text(
-                  widget.serviceDescription,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontSize: height * 0.015,
-                      letterSpacing: 2.0,
-                      fontWeight: FontWeight.w200,
-                      height: width < 900 ? 1.5 : 1.8),
-                ),
-              )
-            ],
-          ),
+          boxShadow: isHover
+              ? [
+                  BoxShadow(
+                    color: kPrimaryColor.withAlpha(100),
+                    blurRadius: 12.0,
+                    offset: Offset(0.0, 0.0),
+                  )
+                ]
+              : [
+                  BoxShadow(
+                    color: Colors.black.withAlpha(100),
+                    blurRadius: 12.0,
+                    offset: Offset(0.0, 0.0),
+                  )
+                ],
         ),
-      ),
-    );
+        child: child,
+      );
+    });
   }
 }

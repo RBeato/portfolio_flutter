@@ -47,7 +47,16 @@ final kCommunityLinks = [
 ];
 
 // Tools & Tech
-final kTools = ["Flutter", "Dart", "Python", "C++", "HTML", "CSS", "Bootstrap"];
+final kTools = [
+  "Flutter",
+  "Dart",
+  "Python",
+  "C++",
+  "HTML",
+  "CSS",
+  "Bootstrap",
+  "Solidity"
+];
 
 // services
 final kServicesIcons = [

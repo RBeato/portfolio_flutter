@@ -1,10 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:romeu_portfolio/animations/bottom_animation.dart';
 import 'package:romeu_portfolio/helper_widgets/custom_btn.dart';
 import 'package:romeu_portfolio/helper_widgets/custom_text_heading.dart';
 // import 'package:particles_flutter/particles_flutter.dart';
-import 'package:romeu_portfolio/pages/common/background_animation.dart';
 
 import '../../constants.dart';
 import 'project_card.dart';
@@ -20,89 +20,93 @@ class Projects extends StatelessWidget {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    return Stack(children: [
-      Align(child: Container(color: Colors.purple.withOpacity(0.5))),
-      // Align(
-      //     alignment: Alignment.center,
-      //     child: BackgroundAnimation(baseColor: Colors.blue)),
-      Align(
-          alignment: Alignment.center,
-          child: Container(
-              padding: EdgeInsets.symmetric(
-                  horizontal: width * 0.02, vertical: height * 0.02),
-              child: Container(
-                child: Column(
-                  children: [
-                    CustomSectionHeading(text: "\nPortfolio"),
-                    CustomSectionSubHeading(
-                        text:
-                            "Here are few samples of my previous work :)\n\n"),
-                    isMobile
-                        ? Column(
-                            children: [
-                              CarouselSlider.builder(
-                                itemCount: 10,
-                                itemBuilder: (BuildContext context,
-                                        int itemIndex, int i) =>
-                                    Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15.0),
-                                  child: ProjectCardWrapper(i),
+    return ResponsiveBuilder(builder: (context, sizingInformation) {
+      return Stack(children: [
+        Align(child: Container(color: Colors.purple.withOpacity(0.5))),
+        // Align(
+        //     alignment: Alignment.center,
+        //     child: BackgroundAnimation(baseColor: Colors.blue)),
+        Align(
+            alignment: Alignment.center,
+            child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.02, vertical: height * 0.02),
+                child: Container(
+                  child: Column(
+                    children: [
+                      CustomSectionHeading(text: "\nPortfolio"),
+                      CustomSectionSubHeading(
+                          text:
+                              "Here are few samples of my previous work :)\n\n"),
+                      sizingInformation.isMobile
+                          ? Column(
+                              children: [
+                                CarouselSlider.builder(
+                                  itemCount: 10,
+                                  itemBuilder: (BuildContext context,
+                                          int itemIndex, int i) =>
+                                      Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 15.0),
+                                    child: ProjectCardWrapper(i),
+                                  ),
+                                  options: CarouselOptions(
+                                      height: height * 0.4,
+                                      autoPlay: true,
+                                      autoPlayInterval: Duration(seconds: 5),
+                                      enlargeCenterPage: true,
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      autoPlayAnimationDuration:
+                                          Duration(milliseconds: 800),
+                                      enableInfiniteScroll: false),
                                 ),
-                                options: CarouselOptions(
-                                    height: height * 0.4,
-                                    autoPlay: true,
-                                    autoPlayInterval: Duration(seconds: 5),
-                                    enlargeCenterPage: true,
-                                    autoPlayCurve: Curves.fastOutSlowIn,
-                                    autoPlayAnimationDuration:
-                                        Duration(milliseconds: 800),
-                                    enableInfiniteScroll: false),
-                              ),
-                              SizedBox(height: height * 0.03),
-                              OutlinedCustomBtn(
-                                  btnText: "See More",
-                                  onPressed: () {
-                                    launchURL("https://github.com/mhmzdev");
-                                  })
-                            ],
-                          )
-                        : Column(
-                            children: [
-                              SizedBox(
-                                height:
-                                    width > 1200 ? height * 0.45 : width * 0.21,
-                                child: ListView.separated(
-                                  itemCount: 4,
-                                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                                  scrollDirection: Axis.horizontal,
-                                  separatorBuilder: (context, index) {
-                                    return VerticalDivider(
-                                      color: Colors.transparent,
-                                      width: width * 0.015,
-                                    );
-                                  },
-                                  itemBuilder: (context, index) {
-                                    return WidgetAnimator(
-                                      child: ProjectCardWrapper(index),
-                                    );
-                                  },
+                                SizedBox(height: height * 0.03),
+                                OutlinedCustomBtn(
+                                    btnText: "See More",
+                                    onPressed: () {
+                                      launchURL("https://github.com/mhmzdev");
+                                    })
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                SizedBox(
+                                  height: width > 1200
+                                      ? height * 0.45
+                                      : width * 0.21,
+                                  child: ListView.separated(
+                                    itemCount: 4,
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 20.0),
+                                    scrollDirection: Axis.horizontal,
+                                    separatorBuilder: (context, index) {
+                                      return VerticalDivider(
+                                        color: Colors.transparent,
+                                        width: width * 0.015,
+                                      );
+                                    },
+                                    itemBuilder: (context, index) {
+                                      return WidgetAnimator(
+                                        child: ProjectCardWrapper(index),
+                                      );
+                                    },
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: height * 0.02,
-                              ),
-                              OutlinedCustomBtn(
-                                  btnText: "See More",
-                                  onPressed: () {
-                                    launchURL("https://github.com/mhmzdev");
-                                  })
-                            ],
-                          )
-                  ],
-                ),
-              )))
-    ]);
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
+                                OutlinedCustomBtn(
+                                    btnText: "See More",
+                                    onPressed: () {
+                                      launchURL("https://github.com/mhmzdev");
+                                    })
+                              ],
+                            )
+                    ],
+                  ),
+                )))
+      ]);
+    });
   }
 
   ProjectCard ProjectCardWrapper(int i) {
@@ -118,7 +122,6 @@ class Projects extends StatelessWidget {
       maxWidthConstraint = 0.35;
       minWidthConstraint = 0.3;
     }
-    print("Width $width");
     return ProjectCard(
       cardWidth: width < maxWidth
           ? width * minWidthConstraint
