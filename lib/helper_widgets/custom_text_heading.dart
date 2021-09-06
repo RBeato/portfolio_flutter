@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../adaptive_text.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class CustomSectionHeading extends StatelessWidget {
   final String text;
@@ -9,14 +9,15 @@ class CustomSectionHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveText(
+    return AutoSizeText(
       text,
       style: GoogleFonts.montserrat(
-        fontSize: MediaQuery.of(context).size.height * 0.055,
+        fontSize: MediaQuery.of(context).size.height * 0.045,
         fontWeight: FontWeight.w100,
         letterSpacing: 1.0,
         color: Colors.white,
       ),
+      minFontSize: 30.0,
     );
   }
 }
@@ -29,7 +30,7 @@ class CustomSectionSubHeading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveText(
+    return Text(
       text,
       style: GoogleFonts.montserrat(
         fontWeight: FontWeight.w200,

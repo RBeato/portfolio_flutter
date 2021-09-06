@@ -60,12 +60,9 @@ class FlippingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(builder: (context, sizingInformation) {
-      double height = sizingInformation.localWidgetSize.height;
-      double width = sizingInformation.localWidgetSize.width;
       return Container(
-        width: height > 500 ? height * 0.8 : 500,
-        height: width > 300 ? width * 0.8 : 300,
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+        height: getCardHeight(sizingInformation),
+        width: getCardWidth(sizingInformation),
         decoration: BoxDecoration(
           color: Colors.grey[900],
           border: Border(
@@ -96,4 +93,36 @@ class FlippingCard extends StatelessWidget {
       );
     });
   }
+}
+
+getCardHeight(SizingInformation sizingInformation) {
+  double height = sizingInformation.screenSize.height * 0.4;
+  if (sizingInformation.isMobile) {
+    if (sizingInformation.screenSize.height > 700) height = 300;
+  }
+  if (sizingInformation.isTablet) {
+    height = 230;
+  }
+  if (sizingInformation.isDesktop) {
+    if (sizingInformation.screenSize.height > 700) height = 300;
+  }
+  return height;
+}
+
+getCardWidth(SizingInformation sizingInformation) {
+  double screenWidth = sizingInformation.screenSize.width;
+  double width = screenWidth * 0.27;
+  if (sizingInformation.isMobile) {
+    width = screenWidth * 0.65;
+  }
+  if (!sizingInformation.isTablet) {
+    if (screenWidth > 940) width = screenWidth * 0.15;
+    if (screenWidth > 700) width = screenWidth * 0.12;
+  }
+  if (sizingInformation.isDesktop) {
+    if (screenWidth > 1500) width = screenWidth * 0.2;
+    if (screenWidth > 1700) width = screenWidth * 0.15;
+    if (screenWidth > 2200) width = screenWidth * 0.1;
+  }
+  return width;
 }

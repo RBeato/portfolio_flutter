@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:romeu_portfolio/pages/about_page/about.dart';
 
+import 'constants.dart';
 import 'pages/contacts_page/contacts.dart';
 import 'pages/home_page/home.dart';
 import 'pages/projects_page/projects.dart';
@@ -29,15 +31,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  var list = ["Home", "Projects", "Services", "About", "Contact"];
-  var colors = [
-    Colors.black,
-    Colors.blue,
-    Colors.red,
-    Colors.green,
-    Colors.yellow
-  ];
-
   List<Widget> pages = [
     Home(),
     Projects(),
@@ -60,40 +53,43 @@ class MyHomePage extends StatelessWidget {
         children: <Widget>[
           // Header
           Row(
-            children: <Widget>[
-              Spacer(),
-              Row(
-                children: List.generate(pages.length, (index) {
-                  return GestureDetector(
-                    onTap: () {
-                      _scrollToIndex(index);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.transparent.withOpacity(0.1)),
-                      margin: const EdgeInsets.all(8),
-                      child: Text(
-                        list[index],
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: List.generate(pages.length, (index) {
+              return GestureDetector(
+                onTap: () {
+                  _scrollToIndex(index);
+                },
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Colors.transparent.withOpacity(0.1)),
+                  margin: const EdgeInsets.all(8),
+                  child: Text(
+                    listOfTitles[index],
+                    style: const TextStyle(
+                      color: Colors.white,
                     ),
-                  );
-                }),
-              )
-            ],
+                  ),
+                ),
+              );
+            }),
           ),
           // Pages
           Expanded(
-            child: PageView(
-                scrollDirection: Axis.vertical,
-                pageSnapping: false,
-                controller: controller,
-                children: [Projects()]
-                //pages,
-                ),
-          ),
+            child: ResponsiveBuilder(builder: (context, sizingInformation) {
+              print(
+                  "Screen Size: ${sizingInformation.screenSize} Device Type${sizingInformation.deviceScreenType} isPortrait:${sizingInformation.screenSize.aspectRatio < 1}");
+              return PageView(
+                  scrollDirection: Axis.vertical,
+                  pageSnapping: false,
+                  controller: controller,
+                  children: [
+                    Services(),
+                    Projects(),
+                  ]
+                  //pages,
+                  );
+            }),
+          )
         ],
       )),
     );

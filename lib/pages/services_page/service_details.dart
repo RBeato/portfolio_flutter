@@ -49,7 +49,6 @@ class ServiceDetailsDescription extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // final _themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
       padding: const EdgeInsets.only(
           left: 50.0, top: 20.0, right: 20.0, bottom: 20.0),
@@ -60,8 +59,7 @@ class ServiceDetailsDescription extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
             icon: const Icon(
               Icons.arrow_back,
-              color: Colors
-                  .white, //_themeProvider.lightTheme ? Colors.black : Colors.white,
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 25.0),
@@ -80,9 +78,6 @@ class ServiceDetailsDescription extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
                   color: Colors.white,
-                  //  _themeProvider.lightTheme
-                  //     ? Colors.black
-                  //     : Colors.white),
                 ),
               ),
             ],
@@ -95,18 +90,12 @@ class ServiceDetailsDescription extends StatelessWidget {
                     const Icon(
                       Icons.info,
                       color: Colors.white,
-                      //  _themeProvider.lightTheme
-                      //     ? Colors.black
-                      //     : Colors.white,
                     ),
                     const SizedBox(width: 8.0),
                     AdaptiveText(
                       "I don't have MacBook, that's why I only work with Android/Web",
                       style: const TextStyle(
                         color: Colors.white,
-                        // _themeProvider.lightTheme
-                        //     ? Colors.black
-                        //     : Colors.white),
                       ),
                     ),
                   ],
@@ -117,7 +106,6 @@ class ServiceDetailsDescription extends StatelessWidget {
             desc,
             style: GoogleFonts.montserrat(
                 color: Colors.white,
-                //  _themeProvider.lightTheme ? Colors.black : Colors.white,
                 fontSize: 20.0,
                 letterSpacing: 1.2,
                 height: 3.0),
@@ -130,7 +118,6 @@ class ServiceDetailsDescription extends StatelessWidget {
               style: GoogleFonts.montserrat(
                 color: Colors.white,
               ),
-              // _themeProvider.lightTheme ? Colors.black : Colors.white),
             ),
           ),
           const SizedBox(height: 20.0),

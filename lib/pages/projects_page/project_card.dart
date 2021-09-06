@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../adaptive_text.dart';
+import '../../constants.dart';
 
 class ProjectCard extends StatefulWidget {
-  final String projectIcon;
-  final IconData projectIconData;
-  final String projectTitle;
-  final String projectDescription;
-  final String projectLink;
-  final double cardWidth;
-  final double cardHeight;
-  final String backImage;
-  final Widget bottomWidget;
+  final int itemIndex;
 
-  const ProjectCard(
-      {Key key,
-      this.backImage,
-      this.bottomWidget,
-      this.projectIcon,
-      this.projectTitle,
-      this.projectDescription,
-      this.projectLink,
-      this.projectIconData,
-      this.cardWidth,
-      this.cardHeight})
-      : super(key: key);
+  const ProjectCard(this.itemIndex);
   @override
   _ProjectCardState createState() => _ProjectCardState();
 }
@@ -37,11 +19,14 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    // final _themeProvider = Provider.of<ThemeProvider>(context);
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    String iconPath = kProjectsIcons[widget.itemIndex];
+    String title = kProjectsTitles[widget.itemIndex];
+    String description = kProjectsDescriptions[widget.itemIndex];
+    String backImage = kProjectsBanner[widget.itemIndex];
+    String projectLinks = kProjectsLinks[widget.itemIndex];
+
     return InkWell(
-      onTap: () => launch(widget.projectLink),
+      onTap: () => launch(projectLinks),
       onHover: (isHovering) {
         if (isHovering) {
           setState(() {
@@ -53,129 +38,131 @@ class _ProjectCardState extends State<ProjectCard> {
           });
         }
       },
-      child: Container(
-        width: widget.cardWidth,
-        height: widget.cardHeight,
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-        decoration: BoxDecoration(
-          color: Colors.grey[500],
-          border: Border(
-            bottom: isHover
-                ? BorderSide(
-                    color: Colors.white,
-                    width: 3.0,
-                  )
-                : BorderSide(
-                    color: Colors.grey[500],
-                  ),
+      child: ResponsiveBuilder(builder: (context, sizingInformation) {
+        double height = sizingInformation.localWidgetSize.height;
+        double width = height * 1.8;
+        return Container(
+          width: height,
+          height: width,
+          padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[500],
+            border: Border(bottom: getorderSide(isHover)),
+            boxShadow: getBoxShadow(isHover),
           ),
-          boxShadow: isHover
-              ? [
-                  BoxShadow(
-                    color: Colors.grey[400],
-                    blurRadius: 12.0,
-                    offset: Offset(0.0, 0.0),
-                  )
-                ]
-              : [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(100),
-                    blurRadius: 12.0,
-                    offset: Offset(0.0, 0.0),
-                  )
-                ],
-        ),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                widget.projectIcon != null
-                    ? (width > 1135 || width < 950)
-                        ? Image.asset(
-                            widget.projectIcon,
-                            height: height * 0.05,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(height * 0.15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    getmainImage(
+                      iconPath: iconPath,
+                      width: width,
+                      height: height,
+                      title: title,
+                    ),
+                    (width > 1135 || width < 950)
+                        ? AdaptiveText(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.montserrat(
+                              fontSize: height * 0.05,
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.grey[400],
+                            ),
                           )
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Image.asset(
-                                widget.projectIcon,
-                                height: height * 0.03,
-                              ),
-                              SizedBox(
-                                width: width * 0.01,
-                              ),
-                              Text(
-                                widget.projectTitle,
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.montserrat(
-                                  fontSize: height * 0.015,
-                                  letterSpacing: 1.5,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          )
-                    : Container(),
-                widget.projectIconData != null
-                    ? Icon(
-                        widget.projectIconData,
-                        color: Colors.grey[500],
-                        size: height * 0.1,
-                      )
-                    : Container(),
-                (width > 1135 || width < 950)
-                    ? SizedBox(
-                        height: height * 0.02,
-                      )
-                    : SizedBox(),
-                (width > 1135 || width < 950)
-                    ? AdaptiveText(
-                        widget.projectTitle,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.montserrat(
-                          fontSize: height * 0.02,
-                          letterSpacing: 1.5,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.grey[400],
-                        ),
-                      )
-                    : Container(),
-                SizedBox(
-                  height: height * 0.01,
+                        : Container(),
+                    AdaptiveText(
+                      description,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                          fontSize: height * 0.03,
+                          letterSpacing: 2.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w300,
+                          height: width >= 600 ? 2.0 : 1.2),
+                    ),
+                  ],
                 ),
-                AdaptiveText(
-                  widget.projectDescription,
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                      fontSize: height * 0.015,
-                      letterSpacing: 2.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w300,
-                      height: width >= 600 ? 2.0 : 1.2),
-                ),
-                SizedBox(
-                  height: height * 0.01,
-                ),
-                widget.bottomWidget ?? Container(),
-              ],
-            ),
-            AnimatedOpacity(
-              duration: Duration(milliseconds: 400),
-              opacity: isHover ? 0.0 : 1.0,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: widget.backImage != null
-                    ? Image.asset(widget.backImage)
-                    : Container(),
               ),
-            ),
-          ],
-        ),
-      ),
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 400),
+                opacity: isHover ? 0.0 : 1.0,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child:
+                      backImage != null ? Image.asset(backImage) : Container(),
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
     );
+  }
+
+  getBoxShadow(isHover) {
+    return isHover
+        ? [
+            BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 12.0,
+              offset: Offset(0.0, 0.0),
+            )
+          ]
+        : [
+            BoxShadow(
+              color: Colors.black.withAlpha(100),
+              blurRadius: 12.0,
+              offset: Offset(0.0, 0.0),
+            )
+          ];
+  }
+
+  getorderSide(isHover) {
+    return isHover
+        ? BorderSide(
+            color: Colors.white,
+            width: 3.0,
+          )
+        : BorderSide(
+            color: Colors.grey[500],
+          );
+  }
+
+  getmainImage({iconPath, width, height, title}) {
+    return iconPath != null
+        ? (width > 1135 || width < 950)
+            ? Image.asset(
+                iconPath,
+                height: height * 0.2,
+              )
+            : Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    iconPath,
+                    height: height * 0.03,
+                  ),
+                  SizedBox(
+                    width: width * 0.01,
+                  ),
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.montserrat(
+                      fontSize: height * 0.015,
+                      letterSpacing: 1.5,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              )
+        : Container();
   }
 }
