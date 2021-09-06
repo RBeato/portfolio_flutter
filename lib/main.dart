@@ -83,10 +83,9 @@ class MyHomePage extends StatelessWidget {
                   pageSnapping: false,
                   controller: controller,
                   children: [
-                    Services(),
-                    Projects(),
+                    About(),
                   ]
-                  //pages,
+                  // pages,
                   );
             }),
           )

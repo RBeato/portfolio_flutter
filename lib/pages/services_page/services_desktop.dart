@@ -30,11 +30,7 @@ class ServicesDesktop extends StatelessWidget {
                 (index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: WidgetAnimator(
-                    child:
-                        // Container(
-                        //     height: 120.0, width: 120.0, color: Colors.green),
-
-                        ServiceCard(index),
+                    child: ServiceCard(index),
                   ),
                 ),
               ),

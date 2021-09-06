@@ -8,8 +8,9 @@ class ToolTechWidget extends StatelessWidget {
   const ToolTechWidget({Key key, @required this.techName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.0),
+    return Container(
+      height: 20.0,
+      width: 100.0,
       child: Row(
         children: [
           Icon(
